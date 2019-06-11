@@ -41,11 +41,24 @@ public class MainActivityViewModel extends AndroidViewModel {
         new DeleteUserTask(userDao).execute(user);
     }
 
-    class DeleteUserTask extends AsyncTask<User, Void, Void> {
+    class OperationTasks extends AsyncTask<User, Void, Void> {
+
         UserDao userDao;
 
-        DeleteUserTask(UserDao userDao) {
+        OperationTasks(UserDao userDao) {
             this.userDao = userDao;
+        }
+
+        @Override
+        protected Void doInBackground(User... users) {
+            return null;
+        }
+    }
+
+    class DeleteUserTask extends OperationTasks {
+
+        DeleteUserTask(UserDao userDao) {
+            super(userDao);
         }
 
         @Override
@@ -55,12 +68,11 @@ public class MainActivityViewModel extends AndroidViewModel {
         }
     }
 
-    class UpdateUserTask extends AsyncTask<User, Void, Void> {
+    class UpdateUserTask extends OperationTasks {
 
-        UserDao userDao;
 
         UpdateUserTask(UserDao userDao) {
-            this.userDao = userDao;
+            super(userDao);
         }
 
         @Override
@@ -70,12 +82,11 @@ public class MainActivityViewModel extends AndroidViewModel {
         }
     }
 
-    class InsertUserTask extends AsyncTask<User, Void, Void> {
+    class InsertUserTask extends OperationTasks {
 
-        UserDao userDao;
 
         InsertUserTask(UserDao userDao) {
-            this.userDao = userDao;
+            super(userDao);
         }
 
         @Override
